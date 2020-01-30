@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">The Return Of MyCalendar</string>
+    <string name="event">Event</string>
+    <string name="speichern">speichern</string>
+    <string name="event_name">Event_Name</string>
+    <string name="uebersicht">Übersicht</string>
+    <string name="overview">overview</string>
+</resources>

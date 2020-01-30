@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="javax.persistence.GenerationType"/>
+<fullyQualifiedTypeName name="lombok.Setter"/>
+<fullyQualifiedTypeName name="lombok.Getter"/>
+<fullyQualifiedTypeName name="CrudJPA.CrudJPA.DBManager"/>
+<fullyQualifiedTypeName name="javax.persistence.Entity"/>
+<fullyQualifiedTypeName name="javax.persistence.ManyToMany"/>
+<fullyQualifiedTypeName name="java.util.Set"/>
+<fullyQualifiedTypeName name="javax.persistence.JoinTable"/>
+<fullyQualifiedTypeName name="lombok.NonNull"/>
+<fullyQualifiedTypeName name="java.awt.List"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="javax.persistence.ManyToOne"/>
+<fullyQualifiedTypeName name="javax.persistence.OneToMany"/>
+</qualifiedTypeNameHistroy>

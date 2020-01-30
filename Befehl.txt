@@ -1,0 +1,13 @@
+psql -U postgres
+pw: 1234
+
+infidb=# \dt
+                Liste der Relationen
+ Schema |        Name        |   Typ   | Eigent³mer
+--------+--------------------+---------+------------
+ public | adresse            | Tabelle | postgres
+ public | artikel            | Tabelle | postgres
+ public | bestellung         | Tabelle | postgres
+ public | bestellung_artikel | Tabelle | postgres
+ public | kunde              | Tabelle | postgres
+(5 Zeilen)

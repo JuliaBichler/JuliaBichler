@@ -1,0 +1,591 @@
+package CrudJPA.CrudJPA;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+public class DBManager {
+	
+	static Connection conn;
+	static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+	static String input;
+	static EntityManagerFactory f = Persistence.createEntityManagerFactory("Maven");
+    static EntityManager manager = f.createEntityManager();
+
+	
+	public DBManager() throws ClassNotFoundException, SQLException, IOException {
+		Class.forName("org.postgresql.Driver");
+		conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/infidb", "postgres", "1234");
+	}
+	public static enum bestellung
+	{
+		kunden_ID,
+		adresse_rechnung_id,
+		adresse_liefer_id
+	}
+	
+	/*----------------------------------Kunde-----------------------------------------------*/
+	
+	public void createKunde(String titelv, String titeln, String vorname, String nachname)
+	{
+		Kunde p = new Kunde();
+		
+		p.setTitelv(titelv);
+		p.setTiteln(titeln);
+		p.setNachname(nachname);
+		p.setVorname(vorname);
+		
+        manager.getTransaction().begin();
+        manager.persist(p);
+        manager.getTransaction().commit();
+	}
+	public void readKunde(int id) throws SQLException, IOException {
+		
+		Kunde p = manager.find(Kunde.class,id);
+		
+		System.out.println(
+				 "ID: "+p.getKunde_id()
+				+" TitelV: "+p.getTitelv()
+				+" Vorname: "+p.getVorname() 
+				+" Nachname: "+p.getNachname() 
+				+" TitelN: "+p.getTiteln());		
+	}
+	public void deleteKunde(int id) throws SQLException, IOException{
+		Kunde p = manager.find(Kunde.class,id);
+        manager.getTransaction().begin();
+        manager.remove(p);
+        manager.getTransaction().commit();
+	}
+	public void updateKundeTitelV(int id, String tv) throws SQLException, IOException {
+		Kunde p = manager.find(Kunde.class,id);
+		
+		p.setTitelv(tv);
+		manager.getTransaction().begin();
+        manager.persist(p);
+        manager.getTransaction().commit();
+	}
+	public void updateKundeTitelN(int id, String tn) throws SQLException, IOException {
+		Kunde p = manager.find(Kunde.class,id);
+		
+		p.setTiteln(tn);
+		manager.getTransaction().begin();
+        manager.persist(p);
+        manager.getTransaction().commit();
+	}
+	public void updateKundeVorname(int id, String vn) throws SQLException, IOException {
+		Kunde p = manager.find(Kunde.class,id);
+		
+		p.setVorname(vn);
+		manager.getTransaction().begin();
+        manager.persist(p);
+        manager.getTransaction().commit();
+	}
+	public void updateKundeNachname(int id, String nn) throws SQLException, IOException {
+		Kunde p = manager.find(Kunde.class,id);
+		
+		p.setNachname(nn);
+		manager.getTransaction().begin();
+        manager.persist(p);
+        manager.getTransaction().commit();
+	}
+	
+	/*-----------------------------------Artikel----------------------------------------------*/
+	
+	public void createArtikel(String name, double preis) throws SQLException, IOException
+	{
+		Artikel a = new Artikel();
+		
+		a.setName(name);
+		a.setPreis(preis);
+		
+        manager.getTransaction().begin();
+        manager.persist(a);
+        manager.getTransaction().commit();
+	}
+	public void readArtikel(int id) throws SQLException, IOException {
+		
+		Artikel a = manager.find(Artikel.class,id);
+		
+		System.out.println(
+				 "ID: "+a.getArtikel_id()
+				+" Bezeichnung: "+a.getName()
+				+" Vorname: "+a.getPreis());
+	}
+	public void deleteArtikel(int id) throws SQLException, IOException{
+		Artikel a = manager.find(Artikel.class,id);
+		
+        manager.getTransaction().begin();
+        manager.remove(a);
+        manager.getTransaction().commit();
+	}
+	public void updateArtikelName(int id, String name) throws SQLException {
+		Artikel a = manager.find(Artikel.class,id);
+		
+		a.setName(name);
+		manager.getTransaction().begin();
+        manager.persist(a);
+        manager.getTransaction().commit();
+	}
+	public void updateArtikelPreis(int id, int preis) throws SQLException {
+		Artikel a = manager.find(Artikel.class,id);
+		
+		a.setPreis(preis);
+		manager.getTransaction().begin();
+        manager.persist(a);
+        manager.getTransaction().commit();
+	}
+	
+	/*---------------------------------------------------------------------------------*/
+	
+	public void createAdresse(String stadt, String strasse, String hnr, int plz) throws SQLException, IOException
+	{
+		Adresse a = new Adresse();
+		
+		a.setStadt(stadt);
+		a.setStrasse(strasse);
+		a.setHnr(hnr);
+		a.setPlz(plz);
+		
+        manager.getTransaction().begin();
+        manager.persist(a);
+        manager.getTransaction().commit();
+	}
+	
+	public void readAdresse(int id) throws SQLException, IOException {
+		
+		Adresse a = manager.find(Adresse.class,id);
+		
+		System.out.println(
+				 "ID: "+a.getAdresse_id()
+				+" Stadt: "+a.getStadt()
+				+" Straße: "+a.getStrasse() 
+				+" Hausnummer: "+a.getHnr() 
+				+" Postleitzahl: "+a.getPlz());
+	}
+	
+	public void deleteAdresse(int id) throws SQLException{
+		Adresse a = manager.find(Adresse.class,id);
+		
+        manager.getTransaction().begin();
+        manager.remove(a);
+        manager.getTransaction().commit();
+	}
+	
+	public static void updateAdressePLZ(int id, int plz) throws SQLException, IOException {
+		
+		Adresse a = manager.find(Adresse.class,id);
+		
+		a.setPlz(plz);
+		manager.getTransaction().begin();
+        manager.persist(a);
+        manager.getTransaction().commit();
+
+	}
+	
+	public static void updateAdresseStadt(int id, String stadt) throws SQLException, IOException {
+		
+		Adresse a = manager.find(Adresse.class,id);
+		
+		a.setStadt(stadt);
+		manager.getTransaction().begin();
+        manager.persist(a);
+        manager.getTransaction().commit();
+
+	}
+	
+	public static void updateAdresseHNR(int id, String hnr) throws SQLException, IOException {
+		
+		Adresse a = manager.find(Adresse.class,id);
+		
+		a.setHnr(hnr);
+		manager.getTransaction().begin();
+        manager.persist(a);
+        manager.getTransaction().commit();
+
+	}
+	
+	public static void updateAdresseSTR(int id, String str) throws SQLException, IOException {
+		
+		Adresse a = manager.find(Adresse.class,id);
+		
+		a.setStrasse(str);
+		manager.getTransaction().begin();
+        manager.persist(a);
+        manager.getTransaction().commit();
+	}
+	
+	/*-----------------------------------------------------------------------------------*/
+
+	public void createBestellung(int kunde_id, int adresse_rechnung_id, int adresse_liefer_id) throws SQLException
+	  {
+	    String sql = "INSERT INTO bestellung(kunde_id, adresse_rechnung_id, adresse_liefer_id) VALUES(?,?,?)";
+	    PreparedStatement stmt = conn.prepareStatement(sql);
+	    stmt.setInt(1,kunde_id);
+	    stmt.setInt(2,adresse_rechnung_id);
+	    stmt.setInt(3,adresse_liefer_id);
+	    
+	    stmt.executeUpdate();
+	    stmt.close();
+	  }
+	  
+	public void deleteBestellung(int id) throws SQLException
+	  {
+	    String sql = "DELETE FROM bestellung WHERE bestell_id=?";
+	    PreparedStatement stmt = conn.prepareStatement(sql);
+	    stmt.setInt(1,id);
+	    
+	    stmt.executeUpdate();
+	    stmt.close();
+	  }
+	  
+	public ArrayList<Bestellung> getBestellung()throws SQLException
+	  {
+	    ArrayList<Bestellung> bestellungen = new ArrayList<Bestellung>();
+	    
+	    String sql = "SELECT * FROM bestellung";
+	    PreparedStatement stmt = conn.prepareStatement(sql);
+	    ResultSet rs = stmt.executeQuery();
+	    
+	    System.out.printf("| %20s | %20s | %20s | %20s |\n","bestell_id", "kunde_id", "adresse_rechnung_id", "adresse_liefer_id");
+	    
+	    while(rs.next())
+	    {
+	      int id = rs.getInt("bestell_id");
+	      int kunde_id = rs.getInt("kunde_id");
+	      int adresse_rechnung_id = rs.getInt("adresse_rechnung_id");
+	      int adresse_liefer_id = rs.getInt("adresse_liefer_id");
+
+	      
+	      
+	      System.out.printf("| %20s | %20s | %20s | %20s |\n",id, kunde_id, adresse_rechnung_id, adresse_liefer_id);
+	      
+	      Bestellung a = new Bestellung(id,kunde_id,adresse_rechnung_id,adresse_liefer_id);
+	      bestellungen.add(a);
+	    }
+	    
+	    rs.close();
+	    stmt.close();
+	    return bestellungen;
+	  }
+	  
+	public void updateBestellung(bestellung bestellungEnum, int value, int adresse_id)throws SQLException
+	  {
+	    String sql = "UPDATE bestellung SET "+bestellungEnum+" = ? WHERE bestell_id=?";
+	    PreparedStatement stmt = conn.prepareStatement(sql);
+	    stmt.setInt(1,value);
+	    stmt.setInt(2,adresse_id);
+	    
+	    stmt.executeUpdate();
+	    stmt.close();
+	  }
+		
+			  
+	/*-----------------------------------------------------------------------------------*/
+
+	public void addArtikeltoBestellung(int bestell_id, int artikel_id, int menge) throws SQLException
+	  {
+	    String sql = "INSERT INTO bestellung_artikel(bestell_id, artikel_id, menge) VALUES(?,?,?)";
+	    PreparedStatement stmt = conn.prepareStatement(sql);
+	    stmt.setInt(1,bestell_id);
+	    stmt.setInt(2,artikel_id);
+	    stmt.setInt(3,menge);
+	    
+	    stmt.executeUpdate();
+	    stmt.close();
+	  }
+			  
+	public void deleteArtikelfromBestellung(int bestell_id, int artikel_id) throws SQLException
+	  {
+	    String sql = "DELETE FROM bestellung_artikel WHERE bestell_id=? AND artikel_id=?";
+	    PreparedStatement stmt = conn.prepareStatement(sql);
+	    stmt.setInt(1,bestell_id);
+	    stmt.setInt(2,artikel_id);
+	    
+	    stmt.executeUpdate();
+	    stmt.close();
+	  }
+			  
+	public ArrayList<Bestellung_Artikel> getArtikelBestellung()throws SQLException
+	  {
+	    ArrayList<Bestellung_Artikel> artikelbestellungen = new ArrayList<Bestellung_Artikel>();
+	    
+	    String sql = "SELECT * FROM Bestellung_Artikel";
+	    PreparedStatement stmt = conn.prepareStatement(sql);
+	    ResultSet rs = stmt.executeQuery();
+	    
+	    System.out.printf("| %20s | %20s | %20s |\n","bestell_id", "artikel_id", "menge");
+	    
+	    while(rs.next())
+	    {
+	      int bestell_id = rs.getInt("bestell_id");
+	      int artikel_id = rs.getInt("artikel_id");
+	      int menge = rs.getInt("menge");
+
+	System.out.printf("| %20s | %20s | %20s |\n",bestell_id, artikel_id, menge);
+	      
+	      Bestellung_Artikel a = new Bestellung_Artikel(bestell_id,artikel_id,menge);
+	      artikelbestellungen.add(a);
+	    }
+	    
+	    rs.close();
+	    stmt.close();
+	    return artikelbestellungen;
+	  }
+			  
+	public void updateBestellungArtikelMenge(int value, int bestell_id, int artikel_id)throws SQLException
+	  {
+	    String sql = "UPDATE bestellung_artikel SET menge = ? WHERE bestell_id=? AND artikel_id=?";
+	    PreparedStatement stmt = conn.prepareStatement(sql);
+	    stmt.setInt(1,value);
+	    stmt.setInt(2,bestell_id);
+	    stmt.setInt(3,artikel_id);
+	    
+	    stmt.executeUpdate();
+	    stmt.close();
+	  }
+
+	public static void bestellungErstellen() throws IOException
+	  {
+	    int kunden_id=0;
+	    int adresse_rechnung_id=0;
+	    int adresse_liefer_id;
+	    
+	    Scanner scan = new Scanner(System.in);
+	    
+	    do
+	    { 
+	      try
+	      {
+	        System.out.print("Kunden ID: "); kunden_id = scan.nextInt();
+	        System.out.print("Liefer-Adresse ID: "); adresse_rechnung_id = scan.nextInt();
+	        System.out.print("Liefer-Rechnung ID: "); adresse_liefer_id = scan.nextInt();
+	      }catch(InputMismatchException e)
+	      {
+	        System.out.println("Fehler! Bitte versuchen Sie es erneut");
+	        scan.next();
+	        continue;
+	      }
+	      System.out.flush(); 
+	      break;
+	    }while(true);
+	    
+	    try
+	    {
+	      DBManager db=new DBManager();
+	      db.createBestellung(kunden_id, adresse_rechnung_id, adresse_liefer_id);
+	      conn.close();
+	      
+	    } catch (ClassNotFoundException | SQLException e)
+	    {
+	      System.out.println("Fehler Bestellung konnte nicht gespeichert werden");
+	    }
+	    
+	    scan.close();
+	  }
+
+	public static void bestellungBearbeiten() throws IOException
+	  {
+	    String id;
+	    int value=0;
+	    DBManager.bestellung bestellungEnum = null;
+	    
+	    Scanner scan = new Scanner(System.in);
+	    
+	    do
+	    {
+
+	      System.out.println("Bestellung Bearbeiten");
+	      
+	      System.out.print("Bestell_iD: ");
+	      id = scan.next();
+	      
+	      
+	      try
+	      {
+
+	    	System.out.print("Attribut angeben (kunde_id, adresse_rechnung_id, adresse_liefer_id): ");
+	        bestellungEnum = DBManager.bestellung.valueOf(scan.next().toUpperCase());
+	        System.out.print("Neuer Wert: ");
+	        value = scan.nextInt();
+	        
+	      }
+	      catch(IllegalArgumentException e)
+	      {
+	        System.out.println("Falsche Angabe");
+	        continue;
+	      }
+	      catch(InputMismatchException a)
+	      {
+	        System.out.println("Fehlerhafte Eingabe. Eingabe ist eine Zahl.");
+	        scan.next();
+	        continue;
+	      }
+	      
+	      System.out.flush(); 
+	    }while(!id.matches("[0-9]+") || bestellungEnum==null);
+	    
+	    try
+	    {
+	      DBManager db=new DBManager();
+	      db.updateBestellung(bestellungEnum, value, Integer.valueOf(id));
+	      conn.close();
+	      
+	    } catch (ClassNotFoundException | SQLException e)
+	    {
+	      System.out.println("Fehler beim Bearbeiten aufgetreten.");
+	    }
+	    scan.close();
+	  }
+	
+	public static void artikeltoBestellung() throws IOException
+	  {
+	    int bestell_id=0;
+	    int artikel_id=0;
+	    int menge=0;
+	    
+	    Scanner scan = new Scanner(System.in);
+	    
+	    do
+	    {
+
+	      System.out.println("Artikel zu Bestellung hinzuf�gen");
+	     
+	      try
+	      {
+	        System.out.print("Bestell ID: "); bestell_id = scan.nextInt();
+	        System.out.print("Artikel ID: "); artikel_id = scan.nextInt();
+	        System.out.print("Menge: "); menge = scan.nextInt();
+	      }catch(InputMismatchException e)
+	      {
+	        System.out.println("Fehlerhafte Eingabe. Es d�rfen nur Zahlen eingegeben werden");
+	        scan.next();
+	        continue;
+	      }
+	      System.out.flush(); 
+	      break;
+	    }while(true);
+	    
+	    try
+	    {
+	      DBManager db=new DBManager();
+	      db.addArtikeltoBestellung(bestell_id, artikel_id, menge);
+	      conn.close();
+	      
+	    } catch (ClassNotFoundException | SQLException e)
+	    {
+	      System.out.println("Fehler beim Erstellen aufgetreten.");
+	      e.printStackTrace();
+	    }
+	    
+	    scan.close();
+	  }
+
+	public static void bestellungArtikelLöschen() throws IOException
+	  {
+		String selector;
+	    int bestell_id=0;
+	    int artikel_id=0;
+	    Scanner scan = new Scanner(System.in);
+	    
+	    do
+	    {
+
+	      System.out.println("Artikel von Bestellung l�schen");
+	      selector=scan.next();
+	      try
+	      {
+	        System.out.print("Bestell ID: "); bestell_id = scan.nextInt();
+	        System.out.print("Artikel ID: "); artikel_id = scan.nextInt();
+	      }catch(InputMismatchException e)
+	      {
+	        System.out.println("Fehlerhafte Eingabe. Es d�rfen nur Zahlen eingegeben werden");
+	        scan.next();
+	        continue;
+	      }
+	      System.out.flush(); 
+	      break;
+	    }while(!selector.matches("[0-9]+"));
+	    
+	    try
+	    {
+	      DBManager db=new DBManager();
+	      db.deleteArtikelfromBestellung(bestell_id, artikel_id);
+	      conn.close();
+	      
+	    } catch (ClassNotFoundException | SQLException e)
+	    {
+	      System.out.println("Fehler beim L�schen aufgetreten.");
+	      e.printStackTrace();
+	    }
+	    
+	    scan.close();
+	  }
+			 
+	public static void bestellungArtikelBearbeiten() throws IOException
+	  {
+	    String selector;
+	    int bestell_id=0;
+	    int artikel_id=0;
+	    int value=0;
+	    
+	    Scanner scan = new Scanner(System.in);
+	    
+	    do
+	    {
+	      System.out.println("--------------------------------------");
+	      System.out.println("Artikel von Bestellung bearbeiten");
+	      System.out.println("--------------------------------------");
+	      
+	      System.out.print("Infos zu Bestellungen/Bestellten Artikeln mit Befehl \"show\" | \"w\" um Fortzufahren: ");
+	      selector = scan.next();
+
+	      
+	      try
+	      {
+	        System.out.print("Bestell ID: "); bestell_id = scan.nextInt();
+	        System.out.print("Artikel ID: "); artikel_id = scan.nextInt();
+	        System.out.print("Neue Menge: "); value = scan.nextInt();
+	      }catch(InputMismatchException e)
+	      {
+	        System.out.println("Fehlerhafte Eingabe. Es d�rfen nur Zahlen eingegeben werden");
+	        scan.next();
+	        continue;
+	      }
+	      System.out.flush(); 
+	      break;
+	    }while(!selector.matches("[0-9]+"));
+	    
+	    try
+	    {
+	      DBManager db=new DBManager();
+	      db.updateBestellungArtikelMenge(value, bestell_id, artikel_id);
+	      conn.close();
+	      
+	    } catch (ClassNotFoundException | SQLException e)
+	    {
+	      System.out.println("Fehler beim bearbeiten aufgetreten.");
+	      e.printStackTrace();
+	    }
+	    
+	    scan.close();
+	  }	
+			  
+			
+
+	
+	
+
+}

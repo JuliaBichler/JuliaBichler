@@ -1,0 +1,89 @@
+package CrudJPA.CrudJPA;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import lombok.*;
+
+import javax.persistence.JoinColumn;
+
+@Entity
+public class Bestellung {
+
+	@Id
+    @Getter
+	private int bestell_id;
+	
+	@ManyToOne
+	@JoinColumn(name="Kundenid", nullable=false)
+	@NonNull
+    @Getter
+    @Setter
+	private Kunde kunden;
+	
+	@ManyToOne
+	@JoinColumn(name="rechnungsid", nullable=false)
+	@NonNull
+    @Getter
+    @Setter
+	private Adresse adresse_rechnung;
+	
+	@ManyToOne
+	@JoinColumn(name="lieferid", nullable=false)
+	@NonNull
+    @Getter
+    @Setter
+	private Adresse adresse_liefer;
+	
+    @OneToMany(targetEntity= Bestellung_Artikel.class)
+    @Getter
+	private List<Bestellung_Artikel> articles = new ArrayList<Bestellung_Artikel>();
+	
+	public Bestellung(Kunde kunden,Adresse adresse_rechnung,Adresse adresse_liefer, ArrayList<Bestellung_Artikel> articles) {
+		this.kunden = kunden;
+		this.adresse_rechnung = adresse_rechnung;
+		this.adresse_liefer = adresse_liefer;
+		this.articles=articles;
+	}
+	
+	public void addArtikel(Artikel artikel, int menge) {
+		articles.add(new Bestellung_Artikel(this, artikel, menge));
+	}
+	
+	public void setArtikelMenge(Artikel artikel, int menge) {
+        for (Bestellung_Artikel orderArticle : articles)
+            if (orderArticle.getArticle().getArticleID() == articles.getArticleID())
+                orderArticle.setMenge(menge);
+    }
+	
+	/*public void setAdresse_liefer_id(Adresse adresse_liefer_id) {
+		this.adresse_liefer = adresse_liefer_id;
+	}
+	public void setAdresse_rechnung_id(Adresse adresse_rechnung_id) {
+		this.adresse_rechnung = adresse_rechnung_id;
+	}
+	public void setBestell_id(int bestell_id) {
+		this.bestell_id = bestell_id;
+	}
+	public void setKunden_id(int kunden_id) {
+		this.kunden_id = kunden_id;
+	}
+	public int getAdresse_liefer_id() {
+		return adresse_liefer_id;
+	}
+	public int getAdresse_rechnung_id() {
+		return adresse_rechnung_id;
+	}
+	public int getBestell_id() {
+		return bestell_id;
+	}
+	public int getKunden_id() {
+		return kunden_id;
+	}
+*/
+}
