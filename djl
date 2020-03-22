@@ -1,0 +1,56 @@
+[1mdiff --git a/Commandpattern/bin/Auftrag.class b/Commandpattern/bin/Auftrag.class[m
+[1mnew file mode 100644[m
+[1mindex 0000000..40d2927[m
+Binary files /dev/null and b/Commandpattern/bin/Auftrag.class differ
+[1mdiff --git a/Commandpattern/bin/Auslagern.class b/Commandpattern/bin/Auslagern.class[m
+[1mnew file mode 100644[m
+[1mindex 0000000..4813bc0[m
+Binary files /dev/null and b/Commandpattern/bin/Auslagern.class differ
+[1mdiff --git a/Commandpattern/bin/Eingabe.class b/Commandpattern/bin/Eingabe.class[m
+[1mnew file mode 100644[m
+[1mindex 0000000..667c4db[m
+Binary files /dev/null and b/Commandpattern/bin/Eingabe.class differ
+[1mdiff --git a/Commandpattern/bin/Einlagern.class b/Commandpattern/bin/Einlagern.class[m
+[1mnew file mode 100644[m
+[1mindex 0000000..3f8d48c[m
+Binary files /dev/null and b/Commandpattern/bin/Einlagern.class differ
+[1mdiff --git a/Commandpattern/bin/Knoten.class b/Commandpattern/bin/Knoten.class[m
+[1mnew file mode 100644[m
+[1mindex 0000000..92d0c88[m
+Binary files /dev/null and b/Commandpattern/bin/Knoten.class differ
+[1mdiff --git a/Commandpattern/bin/Lager.class b/Commandpattern/bin/Lager.class[m
+[1mnew file mode 100644[m
+[1mindex 0000000..d125bf3[m
+Binary files /dev/null and b/Commandpattern/bin/Lager.class differ
+[1mdiff --git a/Commandpattern/bin/Main.class b/Commandpattern/bin/Main.class[m
+[1mnew file mode 100644[m
+[1mindex 0000000..7281c93[m
+Binary files /dev/null and b/Commandpattern/bin/Main.class differ
+[1mdiff --git a/Commandpattern/bin/Stack.class b/Commandpattern/bin/Stack.class[m
+[1mnew file mode 100644[m
+[1mindex 0000000..69b305c[m
+Binary files /dev/null and b/Commandpattern/bin/Stack.class differ
+[1mdiff --git a/Statepattern/bin/Ausgabe.class b/Statepattern/bin/Ausgabe.class[m
+[1mnew file mode 100644[m
+[1mindex 0000000..3ad3ca0[m
+Binary files /dev/null and b/Statepattern/bin/Ausgabe.class differ
+[1mdiff --git a/Statepattern/bin/Context.class b/Statepattern/bin/Context.class[m
+[1mnew file mode 100644[m
+[1mindex 0000000..b0da7dc[m
+Binary files /dev/null and b/Statepattern/bin/Context.class differ
+[1mdiff --git a/Statepattern/bin/IState.class b/Statepattern/bin/IState.class[m
+[1mnew file mode 100644[m
+[1mindex 0000000..ee61fa3[m
+Binary files /dev/null and b/Statepattern/bin/IState.class differ
+[1mdiff --git a/Statepattern/bin/Main.class b/Statepattern/bin/Main.class[m
+[1mnew file mode 100644[m
+[1mindex 0000000..c6e682a[m
+Binary files /dev/null and b/Statepattern/bin/Main.class differ
+[1mdiff --git a/Statepattern/bin/Warten.class b/Statepattern/bin/Warten.class[m
+[1mnew file mode 100644[m
+[1mindex 0000000..4bfbec8[m
+Binary files /dev/null and b/Statepattern/bin/Warten.class differ
+[1mdiff --git "a/Statepattern/bin/W\303\244hlen.class" "b/Statepattern/bin/W\303\244hlen.class"[m
+[1mnew file mode 100644[m
+[1mindex 0000000..1ae49d6[m
+Binary files /dev/null and "b/Statepattern/bin/W\303\244hlen.class" differ
