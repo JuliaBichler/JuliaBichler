@@ -1,0 +1,11 @@
+DROP DATABASE IF EXISTS hash;
+CREATE DATABASE IF NOT EXISTS hash;
+USE hash;
+
+CREATE TABLE users(
+    u_id INT NOT NULL AUTO_INCREMENT,
+    username VARCHAR(64) NOT NULL,
+	password VARCHAR(64) NOT NULL,
+	UNIQUE(username),
+	primary key (u_id)
+);
